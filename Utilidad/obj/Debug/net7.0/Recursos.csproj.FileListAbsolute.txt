@@ -1,0 +1,11 @@
+C:\Users\jhohan_vasquez\Desktop\Documentos\ClinicaLab\Utilidad\bin\Debug\net7.0\Recursos.deps.json
+C:\Users\jhohan_vasquez\Desktop\Documentos\ClinicaLab\Utilidad\bin\Debug\net7.0\Recursos.dll
+C:\Users\jhohan_vasquez\Desktop\Documentos\ClinicaLab\Utilidad\bin\Debug\net7.0\Recursos.pdb
+C:\Users\jhohan_vasquez\Desktop\Documentos\ClinicaLab\Utilidad\obj\Debug\net7.0\Recursos.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\jhohan_vasquez\Desktop\Documentos\ClinicaLab\Utilidad\obj\Debug\net7.0\Recursos.AssemblyInfoInputs.cache
+C:\Users\jhohan_vasquez\Desktop\Documentos\ClinicaLab\Utilidad\obj\Debug\net7.0\Recursos.AssemblyInfo.cs
+C:\Users\jhohan_vasquez\Desktop\Documentos\ClinicaLab\Utilidad\obj\Debug\net7.0\Recursos.csproj.CoreCompileInputs.cache
+C:\Users\jhohan_vasquez\Desktop\Documentos\ClinicaLab\Utilidad\obj\Debug\net7.0\Recursos.dll
+C:\Users\jhohan_vasquez\Desktop\Documentos\ClinicaLab\Utilidad\obj\Debug\net7.0\refint\Recursos.dll
+C:\Users\jhohan_vasquez\Desktop\Documentos\ClinicaLab\Utilidad\obj\Debug\net7.0\Recursos.pdb
+C:\Users\jhohan_vasquez\Desktop\Documentos\ClinicaLab\Utilidad\obj\Debug\net7.0\ref\Recursos.dll

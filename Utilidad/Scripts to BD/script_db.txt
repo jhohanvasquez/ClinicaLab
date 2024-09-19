@@ -1,0 +1,196 @@
+﻿
+create database DBPacientesLab
+
+go
+USE [DBPacientesLab]
+GO
+/****** Object:  Table [dbo].[DepartamentoPaciente]    Script Date: 18/09/2024 9:23:11 p. m. ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[DepartamentoPaciente](
+	[idDepartamentoPaciente] [int] IDENTITY(1,1) NOT NULL,
+	[DescripcionDepartamento] [varchar](50) NULL,
+	[esActivo] [bit] NULL,
+	[fechaRegistro] [datetime] NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[idDepartamentoPaciente] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Usuario]    Script Date: 18/09/2024 9:23:11 p. m. ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Usuario](
+	[idUsuario] [int] IDENTITY(1,1) NOT NULL,
+	[nombreApellidos] [varchar](100) NULL,
+	[correo] [varchar](100) NULL,
+	[clave] [varchar](40) NULL,
+	[esActivo] [bit] NULL,
+	[idDepartamentoPaciente] [int] NULL,
+ CONSTRAINT [PK__Usuario__645723A60425A276] PRIMARY KEY CLUSTERED 
+(
+	[idUsuario] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+SET IDENTITY_INSERT [dbo].[DepartamentoPaciente] ON 
+GO
+INSERT [dbo].[DepartamentoPaciente] ([idDepartamentoPaciente], [DescripcionDepartamento], [esActivo], [fechaRegistro]) VALUES (1, N'Antioquia', 1, CAST(N'2023-06-12T12:03:53.440' AS DateTime))
+GO
+INSERT [dbo].[DepartamentoPaciente] ([idDepartamentoPaciente], [DescripcionDepartamento], [esActivo], [fechaRegistro]) VALUES (2, N'Amazonas', 1, CAST(N'2023-06-12T12:03:53.440' AS DateTime))
+GO
+INSERT [dbo].[DepartamentoPaciente] ([idDepartamentoPaciente], [DescripcionDepartamento], [esActivo], [fechaRegistro]) VALUES (3, N'Cundinamarca', 1, CAST(N'2023-06-12T12:03:53.443' AS DateTime))
+GO
+INSERT [dbo].[DepartamentoPaciente] ([idDepartamentoPaciente], [DescripcionDepartamento], [esActivo], [fechaRegistro]) VALUES (4, N'Atlantico', 1, CAST(N'2023-06-12T12:03:53.443' AS DateTime))
+GO
+SET IDENTITY_INSERT [dbo].[DepartamentoPaciente] OFF
+GO
+SET IDENTITY_INSERT [dbo].[Usuario] ON 
+GO
+INSERT [dbo].[Usuario] ([idUsuario], [nombreApellidos], [correo], [clave], [esActivo], [idDepartamentoPaciente]) VALUES (1, N'admin', N'admin@example.com', N'12345', 1, 2)
+GO
+INSERT [dbo].[Usuario] ([idUsuario], [nombreApellidos], [correo], [clave], [esActivo], [idDepartamentoPaciente]) VALUES (2, N'employe', N'employe@example.com', N'12345', 1, 2)
+GO
+INSERT [dbo].[Usuario] ([idUsuario], [nombreApellidos], [correo], [clave], [esActivo], [idDepartamentoPaciente]) VALUES (3, N'test', N'admin@example.com.co', N'123456', NULL, 4)
+GO
+INSERT [dbo].[Usuario] ([idUsuario], [nombreApellidos], [correo], [clave], [esActivo], [idDepartamentoPaciente]) VALUES (4, N'test', N'admin@example.com.co', N'123456', NULL, 1)
+GO
+INSERT [dbo].[Usuario] ([idUsuario], [nombreApellidos], [correo], [clave], [esActivo], [idDepartamentoPaciente]) VALUES (6, N'tessss', N'admin@example.com.co', N'1234567', NULL, 2)
+GO
+INSERT [dbo].[Usuario] ([idUsuario], [nombreApellidos], [correo], [clave], [esActivo], [idDepartamentoPaciente]) VALUES (7, N'rrrr', N'admin@example.com.com', N'123456', NULL, 3)
+GO
+INSERT [dbo].[Usuario] ([idUsuario], [nombreApellidos], [correo], [clave], [esActivo], [idDepartamentoPaciente]) VALUES (8, N'rrrr', N'admin@example.com.com', N'123456', NULL, 3)
+GO
+INSERT [dbo].[Usuario] ([idUsuario], [nombreApellidos], [correo], [clave], [esActivo], [idDepartamentoPaciente]) VALUES (9, N'rrrr', N'admin@example.com.com', N'123456', NULL, 3)
+GO
+SET IDENTITY_INSERT [dbo].[Usuario] OFF
+GO
+ALTER TABLE [dbo].[DepartamentoPaciente] ADD  DEFAULT (getdate()) FOR [fechaRegistro]
+GO
+ALTER TABLE [dbo].[Usuario]  WITH CHECK ADD  CONSTRAINT [FK_Usuario_DepartamentoPaciente] FOREIGN KEY([idDepartamentoPaciente])
+REFERENCES [dbo].[DepartamentoPaciente] ([idDepartamentoPaciente])
+GO
+ALTER TABLE [dbo].[Usuario] CHECK CONSTRAINT [FK_Usuario_DepartamentoPaciente]
+GO
+/****** Object:  StoredProcedure [dbo].[SP_CrearUsuario]    Script Date: 18/09/2024 9:23:11 p. m. ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROCEDURE [dbo].[SP_CrearUsuario]
+	   @NombreApellidos varchar(100),
+	   @Correo varchar(100),
+	   @idDepartamentoPaciente int,
+	   @Clave varchar(40),
+	   @esActivo bit
+AS
+BEGIN 
+INSERT INTO [dbo].[Usuario]
+           ([nombreApellidos]
+           ,[correo]
+           ,[idDepartamentoPaciente]
+           ,[clave]
+           ,[esActivo])
+     VALUES
+           (@NombreApellidos
+           ,@Correo
+           ,@idDepartamentoPaciente
+           ,@Clave
+           ,@esActivo)
+
+		   SELECT SCOPE_IDENTITY()
+END
+
+GO
+/****** Object:  StoredProcedure [dbo].[SP_EditarUsuario]    Script Date: 18/09/2024 9:23:11 p. m. ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROCEDURE [dbo].[SP_EditarUsuario]
+	   @idUsuario	int,
+	   @NombreApellidos varchar(100),
+	   @Correo varchar(100),
+	   @idDepartamentoPaciente int,
+	   @Clave varchar(40),
+	   @esActivo bit
+AS
+BEGIN 
+UPDATE [dbo].[Usuario]
+   SET [nombreApellidos] = @NombreApellidos
+      ,[correo] = @Correo
+      ,[idDepartamentoPaciente] = @idDepartamentoPaciente
+      ,[clave] = @Clave
+      ,[esActivo] = @esActivo
+ WHERE idUsuario = @idUsuario
+END
+
+
+GO
+/****** Object:  StoredProcedure [dbo].[SP_EliminarUsuario]    Script Date: 18/09/2024 9:23:11 p. m. ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROCEDURE [dbo].[SP_EliminarUsuario]
+	   @idUsuario	int	 
+AS
+BEGIN 
+DELETE
+FROM Usuario 
+WHERE [idUsuario] = @idUsuario
+END
+
+GO
+/****** Object:  StoredProcedure [dbo].[SP_ListarUsuario]    Script Date: 18/09/2024 9:23:11 p. m. ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROCEDURE [dbo].[SP_ListarUsuario] 
+AS
+BEGIN 
+SELECT *
+FROM Usuario 
+END
+
+GO
+/****** Object:  StoredProcedure [dbo].[SP_ObtenerUsuario]    Script Date: 18/09/2024 9:23:11 p. m. ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROCEDURE [dbo].[SP_ObtenerUsuario]
+	   @email	varchar(100),
+	   @clave varchar(100)	 
+AS
+BEGIN 
+SELECT *
+FROM Usuario 
+WHERE [correo] = @email AND [clave] = @clave
+END
+
+GO
+/****** Object:  StoredProcedure [dbo].[SP_ObtenerUsuarioId]    Script Date: 18/09/2024 9:23:11 p. m. ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROCEDURE [dbo].[SP_ObtenerUsuarioId]
+	   @idUsuario	int	 
+AS
+BEGIN 
+SELECT *
+FROM Usuario 
+WHERE [idUsuario] = @idUsuario
+END
+
+GO
+
+
+
